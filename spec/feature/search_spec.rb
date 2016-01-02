@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'bbc_iplayer_search'
 
 describe 'A search' do
   context 'with zero results', :vcr do

@@ -1,5 +1,6 @@
 require 'vcr'
 require 'webmock/rspec'
+require 'bbc_iplayer_search'
 
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/cassettes'

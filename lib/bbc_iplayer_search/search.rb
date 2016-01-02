@@ -6,13 +6,14 @@ module BBCIplayerSearch
   class Search
     def search(query)
       r = response(query)
-      programmes = programme_fragments(r.body).map { |f|
+      programmes = programme_fragments(r.body).map do |f|
+        rp = ResultParser.new(f)
         {
-          :title => programme_title(f),
-          :url => programme_url(f),
-          :image_url => programme_image_url(f)
+          :title => rp.title,
+          :url => rp.url,
+          :image_url => rp.image_url
         }
-      }
+      end
 
       if programmes.empty? & !no_results_page?(r.body)
         raise BBCIplayerSearch::SearchResultsPageNotRecognised
@@ -32,25 +33,6 @@ module BBCIplayerSearch
 
     def programme_fragments(page)
       Nokogiri::HTML(page).css('.iplayer-list li.list-item')
-    end
-
-    def programme_title(fragment)
-      fragment.css('.title').first.content.strip
-    end
-
-    def programme_url(fragment)
-      u = URI.parse(extract_rental_path_or_url(fragment))
-      u.host ||= 'www.bbc.co.uk'
-      u.scheme ||= 'http'
-      u.to_s
-    end
-
-    def extract_rental_path_or_url(fragment)
-      fragment.css('a').first.attributes['href'].value
-    end
-
-    def programme_image_url(fragment)
-      fragment.css('.r-image').first.attributes['data-ip-src'].value
     end
   end
 end
