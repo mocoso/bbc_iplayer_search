@@ -11,7 +11,8 @@ module BBCIplayerSearch
         {
           :title => rp.title,
           :url => rp.url,
-          :image_url => rp.image_url
+          :image_url => rp.image_url,
+          :available => rp.available?
         }
       end
 

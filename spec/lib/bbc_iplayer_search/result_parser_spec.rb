@@ -29,4 +29,17 @@ describe BBCIplayerSearch::ResultParser do
   describe '#image_url' do
     it { expect(subject.image_url).to eq(image_url) }
   end
+
+  describe '#available' do
+    it { expect(subject.available?).to eq(true) }
+
+    context 'when not available' do
+      let(:fragment) {
+        Nokogiri::HTML::DocumentFragment.parse("<li class='list-item unavailable'>
+        </li>")
+      }
+
+      it { expect(subject.available?).to eq(false) }
+    end
+  end
 end
