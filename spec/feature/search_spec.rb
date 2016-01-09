@@ -29,7 +29,7 @@ describe 'A search' do
     it do
       expect {
         BBCIplayerSearch::Search.new.search('eastenders') 
-      }.to raise_error(BBCIplayerSearch::SearchResultsPageNotRecognised)
+      }.to raise_error(BBCIplayerSearch::PageNotRecognised)
     end
   end
 end

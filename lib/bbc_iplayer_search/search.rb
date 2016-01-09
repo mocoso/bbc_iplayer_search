@@ -17,7 +17,7 @@ module BBCIplayerSearch
       end
 
       if programmes.empty? & !no_results_page?(r.body)
-        raise BBCIplayerSearch::SearchResultsPageNotRecognised
+        raise BBCIplayerSearch::PageNotRecognised
       else
         programmes
       end
