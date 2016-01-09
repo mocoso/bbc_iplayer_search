@@ -1,7 +1,11 @@
 module BBCIplayerSearch
-  class Search
-    def search(query)
-      r = response(query)
+  class Category
+    def initialize(slug)
+      @slug = slug
+    end
+
+    def programmes
+      r = response
       programmes = programme_fragments(r.body).map do |f|
         rp = ResultParser.new(f)
         {
@@ -12,7 +16,7 @@ module BBCIplayerSearch
         }
       end
 
-      if programmes.empty? & !no_results_page?(r.body)
+      if programmes.empty?
         raise BBCIplayerSearch::PageNotRecognised
       else
         programmes
@@ -20,12 +24,10 @@ module BBCIplayerSearch
     end
 
     private
-    def no_results_page?(page)
-      page.include?('There are no results for')
-    end
+    attr_reader :slug
 
-    def response(query)
-      HTTPClient.new.get('http://www.bbc.co.uk/iplayer/search', { 'q' => query })
+    def response
+      HTTPClient.new.get("http://www.bbc.co.uk/iplayer/categories/#{slug}/all", { 'sort' => 'dateavailable' })
     end
 
     def programme_fragments(page)
