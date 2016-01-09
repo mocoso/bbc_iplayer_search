@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'bbc_iplayer_search'
-  s.version     = '0.0.0'
+  s.version     = '0.0.1'
   s.date        = '2015-01-02'
   s.summary     = "A simple search API for BBC iplayer"
   s.description = "Built with some wonky page scraping"
