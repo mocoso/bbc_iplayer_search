@@ -16,7 +16,7 @@ module BBCIplayerSearch
     end
 
     def image_url
-      fragment.css('.r-image').first.attributes['data-ip-src'].value
+      fragment.css('source').first.attributes['srcset'].value
     end
 
     def available?

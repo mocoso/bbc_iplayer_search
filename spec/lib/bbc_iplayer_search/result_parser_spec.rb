@@ -9,7 +9,10 @@ describe BBCIplayerSearch::ResultParser do
       <a href='/iplayer/episode/b0074n82/citizen-kane'>
         <div class='title'>Citizen Kane</div>
         <div>
-          <div class='r-image' data-ip-src='#{image_url}'>
+          <div>
+            <picture>
+              <source srcset='#{image_url}' />
+            </picture>
           </div>
         </div>
       </a>
